@@ -1,0 +1,21 @@
+.row{
+    margin: 1% 1% 2% 1%;
+}
+
+label{
+    font-weight: bold;
+}
+
+input#priority{
+    width: 100%;
+    color: #333333 !important;
+}
+
+button{
+    margin-left: 1%;
+}
+
+button#search{
+    /* float: right; */
+    margin-left: 100% !important;
+}

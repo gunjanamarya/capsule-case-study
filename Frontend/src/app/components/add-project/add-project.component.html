@@ -1,0 +1,65 @@
+<div align="center">
+  <form>
+
+    <div class="row">
+      <div class="col-md-2">
+        <label>Project:</label>
+      </div>
+      <div class="col-md-8">
+        <input type="text" class="form-control" id="project" required>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <label>Priority:</label>
+      </div>
+      <div class="col-md-8">
+        <input type="range" id="priority" min="0" max="30" value="0" step="1" required>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-3">
+        <input type="checkbox" class="form-check-input" id="setDate">
+        <label class="form-check-label" for="setDate">Set Start and End Date</label>
+      </div>
+      <div class="col-md-3">
+        <input type="date" class="form-control" id="startDate" placeholder="Start Date" required>
+      </div>
+      <div class="col-md-3">
+        <input type="date" class="form-control" id="endDate" placeholder="End Date" required>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <label>Manager:</label>
+      </div>
+      <div class="col-md-6">
+        <input type="text" class="form-control" id="manager" required>
+      </div>
+      <div class="col-md-1">
+        <button class="btn btn-primary" id="search">SEARCH</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-primary" id="add">ADD</button>
+        <button class="btn btn-primary" id="reset">RESET</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-10">
+        <hr>
+      </div>
+    </div>
+
+  </form>
+</div>
