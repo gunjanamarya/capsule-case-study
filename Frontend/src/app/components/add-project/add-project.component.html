@@ -1,12 +1,12 @@
-<div align="center">
-  <form>
+<div class="outer-div">
+  <form id="add-project-form" [formGroup]="addProjectForm" (ngSubmit)="onAdd()" novalidate>
 
     <div class="row">
       <div class="col-md-2">
         <label>Project:</label>
       </div>
       <div class="col-md-8">
-        <input type="text" class="form-control" id="project" required>
+        <input type="text" class="form-control" formControlName="project" id="project">
       </div>
     </div>
 
@@ -15,21 +15,21 @@
         <label>Priority:</label>
       </div>
       <div class="col-md-8">
-        <input type="range" id="priority" min="0" max="30" value="0" step="1" required>
+        <input type="range" id="priority" min="0" max="30" step="1" formControlName="priority">
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-1"></div>
       <div class="col-md-3">
-        <input type="checkbox" class="form-check-input" id="setDate">
+        <input type="checkbox" (change)="onSelect($event)" class="form-check-input" id="setDate" formControlName="setDate">
         <label class="form-check-label" for="setDate">Set Start and End Date</label>
       </div>
       <div class="col-md-3">
-        <input type="date" class="form-control" id="startDate" placeholder="Start Date" required>
+        <input type="date" class="form-control" formControlName="startDate" id="startDate" placeholder="Start Date">
       </div>
       <div class="col-md-3">
-        <input type="date" class="form-control" id="endDate" placeholder="End Date" required>
+        <input type="date" class="form-control" formControlName="endDate" id="endDate" placeholder="End Date">
       </div>
     </div>
 
@@ -38,20 +38,19 @@
         <label>Manager:</label>
       </div>
       <div class="col-md-6">
-        <input type="text" class="form-control" id="manager" required>
+        <input type="text" class="form-control" formControlName="manager" id="manager" required>
       </div>
       <div class="col-md-1">
-        <button class="btn btn-primary" id="search">SEARCH</button>
+        <button type="button" class="btn btn-primary" id="search">SEARCH</button>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-6">
-
       </div>
       <div class="col-md-6">
-        <button class="btn btn-primary" id="add">ADD</button>
-        <button class="btn btn-primary" id="reset">RESET</button>
+        <button type="submit" class="btn btn-primary" id="add" [disabled]="!addProjectForm.valid">ADD</button>
+        <button type="button" class="btn btn-primary" id="reset" (click)="addProjectForm.reset({priority:0,startDate:{value:today,disabled:true},endDate:{value:tomorrow,disabled:true}})">RESET</button>
       </div>
     </div>
 
@@ -62,4 +61,6 @@
     </div>
 
   </form>
+
+  <input type="text" class="form-control" placeholder="Search...">
 </div>
