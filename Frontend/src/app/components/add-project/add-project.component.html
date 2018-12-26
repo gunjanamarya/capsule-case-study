@@ -5,7 +5,7 @@
       <div class="col-md-2">
         <label>Project:</label>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <input type="text" class="form-control" formControlName="project" id="project">
       </div>
     </div>
@@ -14,14 +14,14 @@
       <div class="col-md-2">
         <label>Priority:</label>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <input type="range" id="priority" min="0" max="30" step="1" formControlName="priority">
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-3">
+      <!-- <div class="col-md-1"></div> -->
+      <div class="col-md-2">
         <input type="checkbox" (change)="onSelect($event)" class="form-check-input" id="setDate" formControlName="setDate">
         <label class="form-check-label" for="setDate">Set Start and End Date</label>
       </div>
@@ -37,7 +37,7 @@
       <div class="col-md-2">
         <label>Manager:</label>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-5">
         <input type="text" class="form-control" formControlName="manager" id="manager" required>
       </div>
       <div class="col-md-1">
@@ -46,21 +46,28 @@
     </div>
 
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-2">
       </div>
-      <div class="col-md-6">
+      <div class="col-md-5">
+      </div>
+      <div class="col-md-4">
         <button type="submit" class="btn btn-primary" id="add" [disabled]="!addProjectForm.valid">ADD</button>
         <button type="button" class="btn btn-primary" id="reset" (click)="addProjectForm.reset({priority:0,startDate:{value:today,disabled:true},endDate:{value:tomorrow,disabled:true}})">RESET</button>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-10">
+      <div class="col-md-8">
         <hr>
       </div>
     </div>
 
   </form>
 
-  <input type="text" class="form-control" placeholder="Search...">
+  <div class="row">
+    <div class="col-md-8">
+      <input type="text" class="form-control" placeholder="Search...">
+    </div>
+  </div>
+
 </div>

@@ -11,18 +11,19 @@ const UserSchema = mongoose.Schema({
         required: true
     },
     employeeId: {
-        type: String,
-        required: true
+        type: Number,
+        required: true,
+        unique: true
     },
     projectId: {
         type: Schema.Types.ObjectId,
         ref: 'Project',
-        required: true
+        // required: true
     },
     taskId: {
         type: Schema.Types.ObjectId,
         ref: 'Task',
-        required: true
+        // required: true
     }
 }, { collection: 'User' })
 

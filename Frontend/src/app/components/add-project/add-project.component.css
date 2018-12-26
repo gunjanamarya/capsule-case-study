@@ -1,5 +1,5 @@
 .row{
-    margin: 1% 1% 2% 1%;
+    margin: 1% 1% 1% 1%;
 }
 
 label{
@@ -11,16 +11,10 @@ input#priority{
     color: #333333 !important;
 }
 
-button{
-    margin-left: 1%;
+button#add{
+    margin-right: 1%;
 }
 
 button#search{
-    /* float: right; */
-    margin-left: 100% !important;
+    float:  right;
 }
-
-/* .outer-div{
-    width: 60%;
-    margin: auto;
-} */

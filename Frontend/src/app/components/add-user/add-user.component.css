@@ -1,0 +1,24 @@
+.row{
+    margin: 1% 1% 1% 1%;
+}
+
+label{
+    font-weight: bold;
+}
+
+button#add{
+    margin-right: 1%;
+}
+
+button#sortByFirstName, button#sortByLastName, button#sortById{
+    margin-right: 7%;
+}
+
+button#edit-btn, button#delete-btn{
+    float: right;
+    width: 90%;
+}
+
+.ruler{
+    border-top: 2px dotted blue;
+}
