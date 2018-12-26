@@ -28,6 +28,7 @@ exports.get_users = function (req, res) {
     });
 }
 
+// Check again
 exports.update_user = function (req, res) {
     var ObjectId = require('mongoose').Types.ObjectId;
     User.findOne({ _id: new ObjectId(req.params.id) }, function (err, user) {

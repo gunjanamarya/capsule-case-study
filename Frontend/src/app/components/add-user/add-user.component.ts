@@ -39,6 +39,8 @@ export class AddUserComponent implements OnInit {
     this.userService.addUser(user).subscribe(data => {
       this.addUserForm.reset();
       this.getUsersList();
+    }, error => {
+      console.log(error)
     });
   }
 
@@ -47,6 +49,8 @@ export class AddUserComponent implements OnInit {
     this.userService.getUsers().subscribe(data => {
       this.users_list = data;
       // console.log(this.users_list)
+    }, error => {
+      console.log(error)
     });
   }
 
@@ -54,7 +58,7 @@ export class AddUserComponent implements OnInit {
     // sort by employeeId
     if (basis == 'employeeId') {
       this.users_list.sort((a, b) => {
-        return a.employeeId - b.employeeId;
+        return +a.employeeId - +b.employeeId;
       });
     } else if (basis == 'firstName') {
       // sort by firstName
@@ -89,6 +93,8 @@ export class AddUserComponent implements OnInit {
     // console.log(id)
     this.userService.deleteUser(id).subscribe(data => {
       this.getUsersList();
+    }, error => {
+      console.log(error)
     });
   }
 
@@ -101,6 +107,8 @@ export class AddUserComponent implements OnInit {
       });
       this.editable = true;
       this.edit_id = id
+    }, error => {
+      console.log(error)
     });
   }
 
@@ -114,6 +122,8 @@ export class AddUserComponent implements OnInit {
       this.edit_id = null;
       this.addUserForm.reset();
       this.getUsersList();
+    }, error => {
+      console.log(error)
     });
   }
 
