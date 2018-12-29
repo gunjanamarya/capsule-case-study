@@ -12,6 +12,11 @@ const TaskSchema = mongoose.Schema({
         ref: 'Project',
         required: true
     },
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     task: {
         type: String,
         required: true

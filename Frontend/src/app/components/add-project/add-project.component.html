@@ -41,7 +41,7 @@
         <input type="text" class="form-control" formControlName="manager" id="manager" required>
       </div>
       <div class="col-md-1">
-        <button type="button" class="btn btn-primary" id="search">SEARCH</button>
+        <button type="button" class="btn btn-primary" id="search" data-toggle="modal" data-target="#UserModal">SEARCH</button>
       </div>
     </div>
 
@@ -51,14 +51,22 @@
       <div class="col-md-5">
       </div>
       <div class="col-md-4">
-        <button type="submit" class="btn btn-primary" id="add" [disabled]="!addProjectForm.valid">ADD</button>
-        <button type="button" class="btn btn-primary" id="reset" (click)="addProjectForm.reset({priority:0,startDate:{value:today,disabled:true},endDate:{value:tomorrow,disabled:true}})">RESET</button>
+        <button type="submit" class="btn btn-primary" id="add" [disabled]="!(addProjectForm.valid) || !(addProjectForm.get('manager').value)"
+          *ngIf="!editable">ADD</button>
+        <button type="button" class="btn btn-primary" id="add" [disabled]="!(addProjectForm.valid) || !(addProjectForm.get('manager').value)"
+          *ngIf="editable" (click)="onEditSave()">UPDATE</button>
+        <button type="button" class="btn btn-primary" id="reset" (click)="resetForm()" *ngIf="!editable">RESET</button>
+        <button type="button" class="btn btn-primary" id="reset" (click)="cancelEdit()" *ngIf="editable">CANCEL</button>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-8">
-        <hr>
+      <p style="color:red; margin-left: 1%;" *ngIf="error">{{error}}</p>
+    </div>
+
+    <div class="row">
+      <div class="col-8 col-sm-8 col-md-8 col-lg-8">
+        <hr style="border: solid 1px blue">
       </div>
     </div>
 
@@ -66,8 +74,73 @@
 
   <div class="row">
     <div class="col-md-8">
-      <input type="text" class="form-control" placeholder="Search...">
+      <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="search_text">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-1">
+      <label>Sort By:</label>
+    </div>
+    <div class="col-md-7">
+      <button type="button" class="btn btn-primary" id="sortBystartDate" (click)="sort('startDate')">Start Date</button>
+      <button type="button" class="btn btn-primary" id="sortByendDate" (click)="sort('endDate')">End Date</button>
+      <button type="button" class="btn btn-primary" id="sortByPriority" (click)="sort('Priority')">Priority</button>
+      <!-- <button type="button" class="btn btn-primary" id="sortByCompleted" (click)="sort('Completed')">Completed</button> -->
+      <button type="button" class="btn btn-primary" id="clearFilter" (click)="clearFilter()">Clear Filter</button>
     </div>
   </div>
 
+  <div *ngFor="let project of projects | filterProject : search_text">
+    <div class="row" id="projects-list">
+      <div class="col-7 col-sm-7 col-md-7 col-lg-7">
+        <ul class="list-group">
+          <li class="list-group-item">Project: {{project.project | titlecase}}</li>
+          <li class="list-group-item">Start Date: {{project.startDate | date:'MM/dd/yyyy'}} &nbsp; End Date:
+            {{project.endDate | date:'MM/dd/yyyy'}}</li>
+          <li class="list-group-item">Priority: {{project.priority}}</li>
+        </ul>
+      </div>
+      <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+        <button type="button" class="btn btn-secondary" id="edit-btn" (click)="onEdit(project._id)" [disabled]="editable && project._id == edit_id">Update</button>
+        <br>
+        <br>
+        <button type="button" class="btn btn-secondary" id="delete-btn" (click)="suspendProject(project._id)"
+          [disabled]="editable && project._id == edit_id">Suspend</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8 col-sm-8 col-md-8 col-lg-8">
+        <hr class="ruler">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- User Modal -->
+<div class="modal fade" id="UserModal" tabindex="-1" role="dialog" aria-labelledby="UserModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="UserModalLabel">Select the user to be assigned as Project Manager :</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3" *ngFor="let user of users_list">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="radio" value="{{user._id }} - {{user.firstName}} {{user.lastName}}" [(ngModel)]="selected_user">
+            </div>
+          </div>
+          &nbsp; {{user.employeeId }} - {{user.firstName | titlecase}} {{user.lastName | titlecase}}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveUser()" [disabled]="!selected_user">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>

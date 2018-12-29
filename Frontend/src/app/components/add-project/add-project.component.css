@@ -18,3 +18,16 @@ button#add{
 button#search{
     float:  right;
 }
+
+button#sortBystartDate, button#sortByendDate, button#sortByPriority, button#sortByCompleted{
+    margin-right: 5%;
+}
+
+button#edit-btn, button#delete-btn{
+    float: right;
+    width: 90%;
+}
+
+.ruler{
+    border-top: 2px dotted blue;
+}

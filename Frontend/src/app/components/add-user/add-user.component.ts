@@ -16,6 +16,7 @@ export class AddUserComponent implements OnInit {
   editable: boolean;
   edit_id: any;
   search_key: string;
+  error: string;
   constructor(private fb: FormBuilder, private userService: UserService) { }
 
   ngOnInit() {
@@ -32,6 +33,7 @@ export class AddUserComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('user submitted')
     var user = new User();
     user.firstName = this.addUserForm.get('firstName').value;
     user.lastName = this.addUserForm.get('lastName').value;
@@ -39,7 +41,9 @@ export class AddUserComponent implements OnInit {
     this.userService.addUser(user).subscribe(data => {
       this.addUserForm.reset();
       this.getUsersList();
+      this.error = null;
     }, error => {
+      this.error = 'Atleast one of the field has error !!';
       console.log(error)
     });
   }
@@ -122,7 +126,9 @@ export class AddUserComponent implements OnInit {
       this.edit_id = null;
       this.addUserForm.reset();
       this.getUsersList();
+      this.error = null;
     }, error => {
+      this.error = 'Atleast one of the field has error !!';
       console.log(error)
     });
   }
@@ -131,6 +137,7 @@ export class AddUserComponent implements OnInit {
     this.addUserForm.reset();
     this.editable = false;
     this.edit_id = null;
+    this.error = null;
   }
 
   clearFilter() {
