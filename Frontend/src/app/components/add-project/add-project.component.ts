@@ -5,13 +5,14 @@ import { UserService } from '../../services/user.service';
 import { ProjectService } from '../../services/project.service';
 import { User } from '../../models/User.model';
 import { Project } from '../../models/Project.model';
+import { TitleCasePipe } from '@angular/common';
 declare var $: any;
 
 @Component({
   selector: 'app-add-project',
   templateUrl: './add-project.component.html',
   styleUrls: ['./add-project.component.css'],
-  providers: [UserService, ProjectService]
+  providers: [UserService, ProjectService, TitleCasePipe]
 })
 
 export class AddProjectComponent implements OnInit {
@@ -22,6 +23,7 @@ export class AddProjectComponent implements OnInit {
   projects: Project[];
   users_list: User[];
   search_text: string;
+  search_user: string;
   selected_user: string;
   selected_user_id: string;
   editable: boolean;
@@ -29,7 +31,8 @@ export class AddProjectComponent implements OnInit {
   error: string;
   constructor(private fb: FormBuilder,
     private userService: UserService,
-    private projectService: ProjectService) { }
+    private projectService: ProjectService,
+    private titleCasePipe: TitleCasePipe) { }
 
   ngOnInit() {
     this.setDefaultDate();
@@ -90,6 +93,7 @@ export class AddProjectComponent implements OnInit {
       setDate: false
     });
     this.selected_user = null;
+    this.search_user = null;
     this.selected_user_id = null;
   }
 
@@ -130,7 +134,7 @@ export class AddProjectComponent implements OnInit {
   onAdd() {
     // console.log(this.addProjectForm);
     var project = new Project();
-    project.project = this.addProjectForm.get('project').value;
+    project.project = this.titleCasePipe.transform(this.addProjectForm.get('project').value);
     project.priority = this.addProjectForm.get('priority').value;
     project.startDate = this.addProjectForm.get('startDate').value;
     project.endDate = this.addProjectForm.get('endDate').value;
@@ -205,7 +209,7 @@ export class AddProjectComponent implements OnInit {
     this.userService.searchUser(user_id).subscribe(data => {
       this.selected_user = data[0]._id + ' - ' + data[0].firstName + ' ' + data[0].lastName;
       this.addProjectForm.patchValue({
-        "manager": this.selected_user.split('-')[1].trim()
+        "manager": this.titleCasePipe.transform(this.selected_user.split('-')[1].trim())
       })
     }, error => {
       console.log(error)
@@ -214,7 +218,7 @@ export class AddProjectComponent implements OnInit {
 
   onEditSave() {
     var project = new Project();
-    project.project = this.addProjectForm.get('project').value;
+    project.project = this.titleCasePipe.transform(this.addProjectForm.get('project').value);
     project.startDate = this.addProjectForm.get('startDate').value;
     project.endDate = this.addProjectForm.get('endDate').value;
     project.priority = this.addProjectForm.get('priority').value;

@@ -128,7 +128,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="input-group mb-3" *ngFor="let user of users_list">
+        <input type="text" placeholder="Search..." [(ngModel)]="search_user">
+        <br>
+        <br>
+        <div class="input-group mb-3" *ngFor="let user of users_list | filterUser : search_user">
           <div class="input-group-prepend">
             <div class="input-group-text">
               <input type="radio" value="{{user._id }} - {{user.firstName}} {{user.lastName}}" [(ngModel)]="selected_user">
