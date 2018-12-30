@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Project = mongoose.model('Project');
 var User = mongoose.model('User');
+var Parent_Task = mongoose.model('Parent_Task');
+var Task = mongoose.model('Task');
 
 exports.get_projects = function (req, res) {
     Project.find(function (err, projects) {
@@ -101,5 +103,40 @@ exports.search_project = function (req, res) {
     Project.find({ _id: new ObjectId(req.params.id) }, function (err, project) {
         if (err) res.status(500).send(err);
         res.status(200).json(project);
+    });
+}
+
+exports.add_parent_task = function (req, res) {
+    var parentObj = new Parent_Task({
+        parentTask: req.body.parentTask,
+        projectId: req.body.projectId
+    });
+    parentObj.save(function (err, parent) {
+        if (err) res.status(500).send(err);
+        res.status(200).json(parent);
+    });
+}
+
+exports.get_parents = function (req, res) {
+    Parent_Task.find(function (err, parents) {
+        if (err) res.status(500).send(err);
+        res.status(200).json(parents);
+    });
+}
+
+exports.add_sub_task = function (req, res) {
+    var taskObj = new Task({
+        userId: req.body.userId,
+        projectId: req.body.projectId,
+        parentTaskId: req.body.parentTaskId,
+        task: req.body.task,
+        priority: req.body.priority,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        status: 'started'
+    });
+    taskObj.save(function (err, task) {
+        if (err) res.status(500).send(err);
+        res.status(200).json(task);
     });
 }

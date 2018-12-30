@@ -32,4 +32,13 @@ module.exports = function (app) {
 
     app.route('/search-project/:id')
         .get(services.search_project);
+
+    app.route('/add-parent-task')
+        .post(services.add_parent_task);
+
+    app.route('/add-sub-task')
+        .post(services.add_sub_task);
+
+    app.route('/get-parent-tasks')
+        .get(services.get_parents);
 }

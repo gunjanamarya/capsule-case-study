@@ -13,6 +13,7 @@ import { AddUserComponent } from './components/add-user/add-user.component';
 import { ViewTaskComponent } from './components/view-task/view-task.component';
 import { FilterUserPipe } from './pipes/filter-user.pipe';
 import { FilterProjectPipe } from './pipes/filter-project.pipe';
+import { FilterParentTaskPipe } from './pipes/filter-parent-task.pipe';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { FilterProjectPipe } from './pipes/filter-project.pipe';
     ViewTaskComponent,
     FilterUserPipe,
     FilterProjectPipe,
+    FilterParentTaskPipe,
   ],
   imports: [
     BrowserModule,
