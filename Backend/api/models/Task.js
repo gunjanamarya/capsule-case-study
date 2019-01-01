@@ -5,7 +5,7 @@ const TaskSchema = mongoose.Schema({
     parentTaskId: {
         type: Schema.Types.ObjectId,
         ref: 'Parent_Task',
-        required: true
+        // required: true
     },
     projectId: {
         type: Schema.Types.ObjectId,

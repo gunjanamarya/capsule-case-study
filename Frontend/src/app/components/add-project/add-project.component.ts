@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { ProjectService } from '../../services/project.service';
@@ -55,19 +55,13 @@ export class AddProjectComponent implements OnInit {
     let date2 = new Date(date1.setDate(date1.getDate() + 1));
     this.today = this.dateFormatter(new Date(), 'yyyy-MM-dd');
     this.tomorrow = this.dateFormatter(date2, 'yyyy-MM-dd');
-    // console.log('today', this.today, 'tomorrow', this.tomorrow)
-
     if (this.addProjectForm) {
       let start, end;
       start = this.addProjectForm.get('startDate').value;
       end = this.addProjectForm.get('endDate').value;
-      if (!start || this.addProjectForm.get('startDate').status == 'INVALID') {
+      if (!start || !end) {
         this.addProjectForm.patchValue({
-          "startDate": this.today
-        })
-      }
-      if (!end || this.addProjectForm.get('endDate').status == 'INVALID') {
-        this.addProjectForm.patchValue({
+          "startDate": this.today,
           "endDate": this.tomorrow
         })
       }
@@ -79,10 +73,10 @@ export class AddProjectComponent implements OnInit {
       project: [null, Validators.required],
       priority: [0, Validators.required],
       setDate: false,
-      startDate: [{ value: this.today, disabled: true }, [Validators.required, this.startDateValidator]],
-      endDate: [{ value: this.tomorrow, disabled: true }, [Validators.required, this.endDateValidator]],
+      startDate: [{ value: this.today, disabled: true }, [Validators.required]],
+      endDate: [{ value: this.tomorrow, disabled: true }, [Validators.required]],
       manager: [{ value: null, disabled: true }, Validators.required]
-    });
+    }, { validator: this.DateValidator() });
   }
 
   resetForm() {
@@ -110,25 +104,18 @@ export class AddProjectComponent implements OnInit {
     }
   }
 
-  startDateValidator(control: FormControl) {
-    let startDate = new Date(control.value);
-    let endDate = new Date(control.root.get('endDate').value);
-    let today = new Date(new DatePipe("en-US").transform(new Date(), 'yyyy-MM-dd'))
-    if (startDate && (startDate.getTime() < today.getTime()) || startDate.getTime() > endDate.getTime()) {
-      // console.log('error', startDate, endDate, today)
-      return { starterror: true }
+  DateValidator() {
+    return (group: FormGroup): { [key: string]: any } => {
+      let startDate = new Date(group.controls["startDate"].value);
+      let endDate = new Date(group.controls["endDate"].value);
+      let today = new Date(new DatePipe("en-US").transform(new Date(), 'yyyy-MM-dd'));
+      if ((endDate.getTime() < startDate.getTime()) || (startDate.getTime() < today.getTime())) {
+        return {
+          dates: "Start/End date is incorrect"
+        };
+      }
+      return {};
     }
-    return false;
-  }
-
-  endDateValidator(control: FormControl) {
-    let endDate = new Date(control.value);
-    let startDate = new Date(control.root.get('startDate').value);
-    if (endDate && startDate && endDate.getTime() < startDate.getTime()) {
-      // console.log('error', startDate, endDate)
-      return { enderror: true }
-    }
-    return false;
   }
 
   onAdd() {

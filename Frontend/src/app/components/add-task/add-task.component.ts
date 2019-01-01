@@ -50,7 +50,20 @@ export class AddTaskComponent implements OnInit {
     }, error => {
       console.log(error)
     })
+    this.setDefaultDate()
     this.createForm();
+  }
+
+  setDefaultDate() {
+    let date1 = new Date();
+    let date2 = new Date(date1.setDate(date1.getDate() + 1));
+    this.today = this.dateFormatter(new Date(), 'yyyy-MM-dd');
+    this.tomorrow = this.dateFormatter(date2, 'yyyy-MM-dd');
+  }
+
+  dateFormatter(date: Date, format: string): any {
+    if (!date) { return null; }
+    return new DatePipe("en-US").transform(date, format);
   }
 
   createForm() {
@@ -59,11 +72,11 @@ export class AddTaskComponent implements OnInit {
       task: [null, Validators.required],
       ifParent: false,
       priority: [0, Validators.required],
-      parentTask: [{ value: null, disabled: true }, Validators.required],
-      startDate: [null, Validators.required],
-      endDate: [null, Validators.required],
+      parentTask: [{ value: null, disabled: true }],
+      startDate: [this.today, Validators.required],
+      endDate: [this.tomorrow, Validators.required],
       user: [{ value: null, disabled: true }, Validators.required]
-    });
+    }, { validator: this.DateValidator() });
   }
 
   resetForm() {
@@ -76,11 +89,27 @@ export class AddTaskComponent implements OnInit {
     this.selected_user = null;
     this.addTaskForm.reset({
       priority: 0,
-      ifParent: false
+      ifParent: false,
+      startDate: this.today,
+      endDate: this.tomorrow
     });
     this.addTaskForm.get('priority').enable();
     this.addTaskForm.get('startDate').enable();
     this.addTaskForm.get('endDate').enable();
+  }
+
+  DateValidator() {
+    return (group: FormGroup): { [key: string]: any } => {
+      let startDate = new Date(group.controls["startDate"].value);
+      let endDate = new Date(group.controls["endDate"].value);
+      let today = new Date(new DatePipe("en-US").transform(new Date(), 'yyyy-MM-dd'));
+      if ((endDate.getTime() < startDate.getTime()) || (startDate.getTime() < today.getTime())) {
+        return {
+          dates: "Start/End date is incorrect"
+        };
+      }
+      return {};
+    }
   }
 
   saveProject() {

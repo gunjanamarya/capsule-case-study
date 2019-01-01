@@ -85,7 +85,8 @@
       <div class="col-md-5">
       </div>
       <div class="col-md-4">
-        <button type="submit" class="btn btn-primary" id="add" [disabled]="!this.addTaskForm.valid || !this.addTaskForm.get('project').value">ADD</button>
+        <button type="submit" class="btn btn-primary" id="add" [disabled]="((this.addTaskForm.get('ifParent').value) ? false : !(this.addTaskForm.get('user').value)) 
+        || !(this.addTaskForm.valid)">ADD</button>
         <button type="button" class="btn btn-primary" id="reset" (click)="resetForm()">RESET</button>
       </div>
     </div>

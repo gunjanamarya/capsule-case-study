@@ -51,9 +51,9 @@
       <div class="col-md-5">
       </div>
       <div class="col-md-4">
-        <button type="submit" class="btn btn-primary" id="add" [disabled]="!(addProjectForm.valid) || !(addProjectForm.get('manager').value)"
+        <button type="submit" class="btn btn-primary" id="add" [disabled]="!(addProjectForm.get('manager').value) || !(addProjectForm.valid)"
           *ngIf="!editable">ADD</button>
-        <button type="button" class="btn btn-primary" id="add" [disabled]="!(addProjectForm.valid) || !(addProjectForm.get('manager').value)"
+        <button type="button" class="btn btn-primary" id="add" [disabled]="!(addProjectForm.get('manager').value) || !(addProjectForm.valid)"
           *ngIf="editable" (click)="onEditSave()">UPDATE</button>
         <button type="button" class="btn btn-primary" id="reset" (click)="resetForm()" *ngIf="!editable">RESET</button>
         <button type="button" class="btn btn-primary" id="reset" (click)="cancelEdit()" *ngIf="editable">CANCEL</button>
