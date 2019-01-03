@@ -28,4 +28,12 @@ export class TaskService {
   addTask(task): Observable<Task> {
     return this._http.post<Task>(this.base_url + 'add-sub-task', task, httpOptions);
   }
+
+  searchTask(id): Observable<Task[]> {
+    return this._http.get<Task[]>(this.base_url + `get-tasks/${id}`);
+  }
+
+  setTaskAsComplete(id): Observable<Task> {
+    return this._http.put<Task>(this.base_url + `complete-task/${id}`, httpOptions);
+  }
 }

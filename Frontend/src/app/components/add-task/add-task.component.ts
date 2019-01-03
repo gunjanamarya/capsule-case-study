@@ -176,11 +176,11 @@ export class AddTaskComponent implements OnInit {
         console.log(error)
       })
     } else {
-      console.log('Child task')
+      // console.log('Child task')
       var subTask = new Task();
       subTask.projectId = this.selected_project.split('-')[0].trim();
       subTask.userId = this.selected_user.split('-')[0].trim()
-      subTask.parentTaskId = this.selected_parent.split('-')[0].trim()
+      subTask.parentTaskId = this.selected_parent ? this.selected_parent.split('-')[0].trim() : null;
       subTask.priority = this.addTaskForm.get('priority').value;
       subTask.startDate = this.addTaskForm.get('startDate').value;
       subTask.endDate = this.addTaskForm.get('endDate').value;

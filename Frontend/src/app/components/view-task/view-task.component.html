@@ -1,3 +1,95 @@
-<p>
-  view-task works!
-</p>
+<div class="outer-div">
+  <div class="row">
+    <div class="col-md-1">
+      <label>Project:</label>
+    </div>
+    <div class="col-md-3">
+      <input type="text" [(ngModel)]="project" class="form-control" [disabled]="true">
+    </div>
+    <div class="col-md-1">
+      <button type="button" class="btn btn-primary" id="search" data-toggle="modal" data-target="#ProjectModal">Search</button>
+    </div>
+    <div class="col-md-1"><label>Sort Task By:</label>
+    </div>
+    <div class="col-md-6">
+      <button type="button" class="btn btn-primary" id="sortBystartDate" (click)="sort('startDate')">Start Date</button>
+      <button type="button" class="btn btn-primary" id="sortByendDate" (click)="sort('endDate')">End Date</button>
+      <button type="button" class="btn btn-primary" id="sortByPriority" (click)="sort('Priority')">Priority</button>
+      <button type="button" class="btn btn-primary" id="sortByCompleted" (click)="sort('Completed')">Completed</button>
+      <button type="button" class="btn btn-primary" id="clearFilter" (click)="clearFilter()">Clear Filter</button>
+    </div>
+  </div>
+
+  <div>
+    <hr style="border: solid 1px blue; margin: 0 1% 0 1%;">
+  </div>
+
+  <div *ngFor="let task of tasks">
+    <div class="row">
+      <div class="col-md-2">
+        <h6>Task</h6><br>
+        {{task.task}}
+      </div>
+      <div class="col-md-2">
+        <h6>Parent</h6><br>
+        {{task.parentTaskId?.parentTask}}
+      </div>
+      <div class="col-md-1">
+        <h6>Priority</h6><br>
+        {{task.priority}}
+      </div>
+      <div class="col-md-2">
+        <h6>Start</h6><br>
+        {{task.startDate | date: 'dd/MM/yyyy'}}
+      </div>
+      <div class="col-md-2">
+        <h6>End</h6><br>
+        {{task.endDate | date: 'dd/MM/yyyy'}}
+      </div>
+      <div class="col-md-1">
+        <h6>Status</h6><br>
+        {{task.status | titlecase}}
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-secondary" id="edit" (click)="editTask(task._id)">Edit</button>
+        <button class="btn btn-secondary" id="delete" (click)="endTask(task._id)">End</button>
+      </div>
+    </div>
+    <div>
+      <hr class="ruler">
+    </div>
+  </div>
+
+</div>
+
+<!--Project Modal-->
+<div class="modal fade" id="ProjectModal" tabindex="-1" role="dialog" aria-labelledby="ProjectModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="ProjectModalLabel">Select the project :</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" placeholder="Search..." [(ngModel)]="search_project">
+        <br>
+        <br>
+        <div class="input-group mb-3" *ngFor="let project of projects | filterProject : search_project : 'name'">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="radio" value="{{project._id}}-{{project.project}}" [(ngModel)]="selected_project">
+            </div>
+          </div>
+          &nbsp; {{project.project}}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveProject()" [disabled]="!selected_project">Save
+          changes</button>
+      </div>
+    </div>
+  </div>
+</div>

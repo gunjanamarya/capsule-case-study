@@ -41,4 +41,13 @@ module.exports = function (app) {
 
     app.route('/get-parent-tasks')
         .get(services.get_parents);
+
+    app.route('/get-tasks/:id')
+        .get(services.search_tasks);
+
+    app.route('/complete-task/:id')
+        .put(services.complete_task);
+
+    app.route('/update-task/:id')
+        .put(services.update_task);
 }
