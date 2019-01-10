@@ -9,6 +9,8 @@ import { User } from '../../models/User.model';
 import { Project } from '../../models/Project.model';
 import { ParentTask } from '../../models/Task.model';
 import { Task } from '../../models/Task.model';
+import { ActivatedRoute, Router } from '@angular/router';
+
 declare var $: any;
 
 @Component({
@@ -19,6 +21,7 @@ declare var $: any;
 })
 export class AddTaskComponent implements OnInit {
 
+  task_id: string;
   addTaskForm: FormGroup;
   today: Date;
   tomorrow: Date;
@@ -32,12 +35,15 @@ export class AddTaskComponent implements OnInit {
   search_user: string;
   selected_user: string;
   error: string;
+  editable: boolean = false;
 
   constructor(private fb: FormBuilder,
     private userService: UserService,
     private projectService: ProjectService,
     private taskService: TaskService,
-    private titleCasePipe: TitleCasePipe) { }
+    private titleCasePipe: TitleCasePipe,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.projectService.getProjects().subscribe(data => {
@@ -52,6 +58,25 @@ export class AddTaskComponent implements OnInit {
     })
     this.setDefaultDate()
     this.createForm();
+
+    this.task_id = this.route.snapshot.queryParamMap.get('taskId');
+    if (this.task_id) {
+      this.editable = true;
+      this.taskService.searchTask(this.task_id).subscribe(data => {
+        // console.log(data)
+        //TO DO
+        this.addTaskForm.setValue({
+          task: data[0].task,
+          priority: data[0].priority,
+          ifParent: false,
+          parentTask: data[0].parentTaskId ? data[0].parentTaskId['parentTask'] : null,
+          startDate: this.dateFormatter(new Date(data[0].startDate), 'yyyy-MM-dd'),
+          endDate: this.dateFormatter(new Date(data[0].endDate), 'yyyy-MM-dd'),
+        })
+        this.addTaskForm.get('ifParent').disable();
+        this.selected_parent = data[0].parentTaskId ? data[0].parentTaskId['_id'] + '-' + data[0].parentTaskId['parentTask'] : null
+      })
+    }
   }
 
   setDefaultDate() {
@@ -87,6 +112,7 @@ export class AddTaskComponent implements OnInit {
     this.selected_parent = null;
     this.search_user = null;
     this.selected_user = null;
+    this.editable = false;
     this.addTaskForm.reset({
       priority: 0,
       ifParent: false,
@@ -96,6 +122,7 @@ export class AddTaskComponent implements OnInit {
     this.addTaskForm.get('priority').enable();
     this.addTaskForm.get('startDate').enable();
     this.addTaskForm.get('endDate').enable();
+    this.addTaskForm.get('ifParent').enable();
   }
 
   DateValidator() {
@@ -205,6 +232,28 @@ export class AddTaskComponent implements OnInit {
       this.addTaskForm.get('startDate').enable();
       this.addTaskForm.get('endDate').enable();
     }
+  }
+
+  updateTask() {
+    let subTask = new Task();
+    //TO DO
+    subTask.parentTaskId = this.selected_parent ? this.selected_parent.split('-')[0].trim() : null;
+    subTask.priority = this.addTaskForm.get('priority').value;
+    subTask.startDate = this.addTaskForm.get('startDate').value;
+    subTask.endDate = this.addTaskForm.get('endDate').value;
+    subTask.task = this.titleCasePipe.transform(this.addTaskForm.get('task').value);
+
+    this.taskService.editTask(this.task_id, subTask).subscribe(data => {
+      this.resetForm();
+      this.error = null;
+    }, error => {
+      this.error = 'Atleast one of the field has error !!';
+      console.log(error)
+    })
+  }
+
+  cancelEdit() {
+    this.router.navigate(['./'])
   }
 
 }

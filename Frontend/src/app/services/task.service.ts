@@ -29,11 +29,19 @@ export class TaskService {
     return this._http.post<Task>(this.base_url + 'add-sub-task', task, httpOptions);
   }
 
-  searchTask(id): Observable<Task[]> {
+  searchTask(id): Observable<Task> {
+    return this._http.get<Task>(this.base_url + `search-task/${id}`);
+  }
+
+  getTasks(id): Observable<Task[]> {
     return this._http.get<Task[]>(this.base_url + `get-tasks/${id}`);
   }
 
   setTaskAsComplete(id): Observable<Task> {
     return this._http.put<Task>(this.base_url + `complete-task/${id}`, httpOptions);
+  }
+
+  editTask(id, task) {
+    return this._http.put<Task>(this.base_url + `edit-task/${id}`, task, httpOptions);
   }
 }

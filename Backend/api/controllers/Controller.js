@@ -141,12 +141,21 @@ exports.add_sub_task = function (req, res) {
     });
 }
 
-exports.search_tasks = function (req, res) {
+exports.search_task = function (req, res) {
+    var ObjectId = require('mongoose').Types.ObjectId;
+    Task.find({ _id: new ObjectId(req.params.id) }, function (err, tasks) {
+        if (err) res.status(500).send(err);
+        res.status(200).json(tasks);
+    }).populate('parentTaskId', 'parentTask');
+}
+
+exports.get_tasks = function (req, res) {
     var ObjectId = require('mongoose').Types.ObjectId;
     Task.find({ projectId: new ObjectId(req.params.id) }, function (err, tasks) {
         if (err) res.status(500).send(err);
         res.status(200).json(tasks);
     }).populate('parentTaskId', 'parentTask');
+
 }
 
 

@@ -51,8 +51,8 @@
         {{task.status | titlecase}}
       </div>
       <div class="col-md-2">
-        <button class="btn btn-secondary" id="edit" (click)="editTask(task._id)">Edit</button>
-        <button class="btn btn-secondary" id="delete" (click)="endTask(task._id)">End</button>
+        <button class="btn btn-secondary" id="edit" (click)="editTask(task._id)" [disabled]="task.status == 'completed'">Edit</button>
+        <button class="btn btn-secondary" id="delete" (click)="endTask(task._id)" [disabled]="task.status == 'completed'">End</button>
       </div>
     </div>
     <div>

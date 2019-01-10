@@ -24,24 +24,14 @@ export class ViewTaskComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // console.log('init called')
     this.getProjects();
-    // let id = this.route.snapshot.queryParamMap.get('projectId');
-    // if (id) {
-    //   this.getTasks(id);
-    // }
   }
 
   saveProject() {
-    let temp = this.selected_project.split('-')
+    let temp = this.selected_project.split('-');
     this.project = temp[1];
     this.getTasks(temp[0]);
     $('#ProjectModal').modal('hide');
-    // this.router.navigate(['/view-task'], {
-    //   queryParams: {
-    //     projectId: temp[0]
-    //   }
-    // })
   }
 
 
@@ -71,7 +61,8 @@ export class ViewTaskComponent implements OnInit {
   }
 
   getTasks(id) {
-    this.taskService.searchTask(id).subscribe(data => {
+    this.taskService.getTasks(id).subscribe(data => {
+      // console.log(data)
       this.tasks = data;
     }, error => {
       console.log(error)
@@ -85,7 +76,11 @@ export class ViewTaskComponent implements OnInit {
   }
 
   editTask(id) {
-
+    this.router.navigate(['/add-task'], {
+      queryParams: {
+        taskId: id
+      }
+    })
   }
 
 }
