@@ -118,7 +118,8 @@ exports.add_parent_task = function (req, res) {
 }
 
 exports.get_parents = function (req, res) {
-    Parent_Task.find(function (err, parents) {
+    var ObjectId = require('mongoose').Types.ObjectId;
+    Parent_Task.find({ projectId: new ObjectId(req.params.id)},function (err, parents) {
         if (err) res.status(500).send(err);
         res.status(200).json(parents);
     });

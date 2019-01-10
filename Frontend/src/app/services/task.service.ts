@@ -21,8 +21,8 @@ export class TaskService {
     return this._http.post<ParentTask>(this.base_url + 'add-parent-task', parent, httpOptions);
   }
 
-  getParents(): Observable<ParentTask[]> {
-    return this._http.get<ParentTask[]>(this.base_url + 'get-parent-tasks');
+  getParents(id): Observable<ParentTask[]> {
+    return this._http.get<ParentTask[]>(this.base_url + `get-parent-tasks/${id}`);
   }
 
   addTask(task): Observable<Task> {

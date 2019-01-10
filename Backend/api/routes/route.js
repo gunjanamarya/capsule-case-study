@@ -39,7 +39,7 @@ module.exports = function (app) {
     app.route('/add-sub-task')
         .post(services.add_sub_task);
 
-    app.route('/get-parent-tasks')
+    app.route('/get-parent-tasks/:id')
         .get(services.get_parents);
 
     app.route('/search-task/:id')

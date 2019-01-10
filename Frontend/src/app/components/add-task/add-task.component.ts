@@ -63,15 +63,28 @@ export class AddTaskComponent implements OnInit {
     if (this.task_id) {
       this.editable = true;
       this.taskService.searchTask(this.task_id).subscribe(data => {
-        // console.log(data)
+        console.log(data)
         //TO DO
-        this.addTaskForm.setValue({
+        this.addTaskForm.patchValue({
           task: data[0].task,
           priority: data[0].priority,
           ifParent: false,
           parentTask: data[0].parentTaskId ? data[0].parentTaskId['parentTask'] : null,
           startDate: this.dateFormatter(new Date(data[0].startDate), 'yyyy-MM-dd'),
           endDate: this.dateFormatter(new Date(data[0].endDate), 'yyyy-MM-dd'),
+        })
+        this.projectService.searchProject(data[0].projectId).subscribe(result => {
+          this.addTaskForm.patchValue({
+            project: result[0].project
+          })
+          this.selected_project = result[0]._id + '-' + result[0].project
+          this.getParentTasks(result[0]._id);
+        })
+        this.userService.searchUser(data[0].userId).subscribe(res => {
+          this.addTaskForm.patchValue({
+            user: res[0].firstName + ' ' + res[0].lastName
+          })
+          this.selected_user = res[0]._id + '-' + res[0].firstName + ' ' + res[0].lastName
         })
         this.addTaskForm.get('ifParent').disable();
         this.selected_parent = data[0].parentTaskId ? data[0].parentTaskId['_id'] + '-' + data[0].parentTaskId['parentTask'] : null
@@ -140,19 +153,19 @@ export class AddTaskComponent implements OnInit {
   }
 
   saveProject() {
-    this.selected_parent = null;
-    this.search_parent = null;
-    this.addTaskForm.patchValue({
-      parentTask: null
-    })
+    this.clearParent();
     let temp = this.selected_project.split('-')
     this.addTaskForm.patchValue({
       "project": temp[1].trim()
     });
-    this.taskService.getParents().subscribe(data => {
+    this.getParentTasks(temp[0]);
+  }
+
+  getParentTasks(id) {
+    this.taskService.getParents(id).subscribe(data => {
       this.parents_list = data;
       this.parents_list = this.parents_list.filter(parent =>
-        parent.projectId == temp[0]
+        parent.projectId == id
       )
       $('#ProjectModal').modal('hide');
     }, error => {
@@ -236,12 +249,14 @@ export class AddTaskComponent implements OnInit {
 
   updateTask() {
     let subTask = new Task();
-    //TO DO
+
     subTask.parentTaskId = this.selected_parent ? this.selected_parent.split('-')[0].trim() : null;
     subTask.priority = this.addTaskForm.get('priority').value;
     subTask.startDate = this.addTaskForm.get('startDate').value;
     subTask.endDate = this.addTaskForm.get('endDate').value;
     subTask.task = this.titleCasePipe.transform(this.addTaskForm.get('task').value);
+    subTask.projectId = this.selected_project.split('-')[0].trim();
+    subTask.userId = this.selected_user.split('-')[0].trim()
 
     this.taskService.editTask(this.task_id, subTask).subscribe(data => {
       this.resetForm();
@@ -254,6 +269,14 @@ export class AddTaskComponent implements OnInit {
 
   cancelEdit() {
     this.router.navigate(['./'])
+  }
+
+  clearParent() {
+    this.selected_parent = null;
+    this.search_parent = null;
+    this.addTaskForm.patchValue({
+      parentTask: null
+    })
   }
 
 }

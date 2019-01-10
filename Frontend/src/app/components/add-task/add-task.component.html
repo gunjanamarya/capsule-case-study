@@ -8,7 +8,8 @@
         <input type="text" class="form-control" formControlName="project" id="project">
       </div>
       <div class="col-md-1">
-        <button type="button" class="btn btn-primary" id="search" data-toggle="modal" data-target="#ProjectModal">SEARCH</button>
+        <button type="button" class="btn btn-primary" id="search" data-toggle="modal" data-target="#ProjectModal"
+          [disabled]="editable">SEARCH</button>
       </div>
     </div>
 
@@ -82,8 +83,8 @@
     <div class="row">
       <div class="col-md-2">
       </div>
-      <div class="col-md-5">
-      </div>
+      <!-- <div class="col-md-5">
+      </div> -->
       <div class="col-md-4">
         <button type="submit" class="btn btn-primary" id="add" [disabled]="((this.addTaskForm.get('ifParent').value) ? false : !(this.addTaskForm.get('user').value)) 
         || !(this.addTaskForm.valid)"
@@ -156,6 +157,7 @@
         </div>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="clearParent()" id="clearParent">Clear Parent Task</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" (click)="saveParent()" [disabled]="!selected_parent">Save
           changes</button>
