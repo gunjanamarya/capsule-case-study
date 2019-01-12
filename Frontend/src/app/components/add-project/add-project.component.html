@@ -74,7 +74,7 @@
 
   <div class="row">
     <div class="col-md-8">
-      <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="search_text">
+      <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="search_text" (ngModelChange)="onSearch(search_text)">
     </div>
   </div>
   <div class="row">
@@ -82,15 +82,16 @@
       <label>Sort By:</label>
     </div>
     <div class="col-md-7">
-      <button type="button" class="btn btn-primary" id="sortBystartDate" (click)="sort('startDate')">Start Date</button>
+      <button type="button" class="btn btn-primary" id="sortBystartDate" (click)="sort(filter_result,'startDate')">Start
+        Date</button>
       <button type="button" class="btn btn-primary" id="sortByendDate" (click)="sort('endDate')">End Date</button>
       <button type="button" class="btn btn-primary" id="sortByPriority" (click)="sort('Priority')">Priority</button>
-      <!-- <button type="button" class="btn btn-primary" id="sortByCompleted" (click)="sort('Completed')">Completed</button> -->
+      <button type="button" class="btn btn-primary" id="sortByCompleted" (click)="sort('Completed')">Completed</button>
       <button type="button" class="btn btn-primary" id="clearFilter" (click)="clearFilter()">Clear Filter</button>
     </div>
   </div>
 
-  <div *ngFor="let project of projects | filterProject : search_text">
+  <div *ngFor="let project of filteredProjects">
     <div class="row" id="projects-list">
       <div class="col-7 col-sm-7 col-md-7 col-lg-7">
         <ul class="list-group">
@@ -98,6 +99,8 @@
           <li class="list-group-item">Start Date: {{project.startDate | date:'MM/dd/yyyy'}} &nbsp; End Date:
             {{project.endDate | date:'MM/dd/yyyy'}}</li>
           <li class="list-group-item">Priority: {{project.priority}}</li>
+          <li class="list-group-item">No. of Tasks: {{project.tasks}}</li>
+          <li class="list-group-item">Completed: {{project.completed}}</li>
         </ul>
       </div>
       <div class="col-1 col-sm-1 col-md-1 col-lg-1">

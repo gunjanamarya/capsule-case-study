@@ -12,13 +12,23 @@ button#add{
 
 button#sortByFirstName, button#sortByLastName, button#sortById{
     margin-right: 7%;
+    margin-top: 1%;
 }
 
 button#edit-btn, button#delete-btn{
     float: right;
-    width: 90%;
+    width: 100%;
+    padding: 5px;
 }
 
 .ruler{
     border-top: 2px dotted blue;
+}
+
+button#clearFilter{
+    margin-top: 1%;
+}
+
+#sortLabel{
+    margin-top: 0.5%;
 }

@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterProjectPipe implements PipeTransform {
 
-  transform(projects: any[], searchText: string, criteria: string): any {
+  transform(projects: any[], searchText: string, criteria?: string): any {
     if (!projects) return [];
     if (!searchText) return projects;
     searchText = searchText.toLowerCase();

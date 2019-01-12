@@ -2,22 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models/User.model';
 import { UserService } from '../../services/user.service';
+import { FilterUserPipe } from '../../pipes/filter-user.pipe';
 
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.css'],
-  providers: [UserService]
+  providers: [UserService, FilterUserPipe]
 })
 export class AddUserComponent implements OnInit {
 
   addUserForm: FormGroup;
   users_list: User[];
+  filtered_users_list: User[];
   editable: boolean;
   edit_id: any;
   search_key: string;
   error: string;
-  constructor(private fb: FormBuilder, private userService: UserService) { }
+  constructor(private fb: FormBuilder,
+    private userService: UserService,
+    private filterUserPipe: FilterUserPipe) { }
 
   ngOnInit() {
     this.createForm();
@@ -33,7 +37,7 @@ export class AddUserComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('user submitted')
+    // console.log('user submitted')
     var user = new User();
     user.firstName = this.addUserForm.get('firstName').value;
     user.lastName = this.addUserForm.get('lastName').value;
@@ -52,6 +56,7 @@ export class AddUserComponent implements OnInit {
     this.users_list = [];
     this.userService.getUsers().subscribe(data => {
       this.users_list = data;
+      this.filtered_users_list = this.users_list;
       // console.log(this.users_list)
     }, error => {
       console.log(error)
@@ -61,12 +66,12 @@ export class AddUserComponent implements OnInit {
   sort(basis) {
     // sort by employeeId
     if (basis == 'employeeId') {
-      this.users_list.sort((a, b) => {
+      this.filtered_users_list.sort((a, b) => {
         return +a.employeeId - +b.employeeId;
       });
     } else if (basis == 'firstName') {
       // sort by firstName
-      this.users_list.sort((a, b) => {
+      this.filtered_users_list.sort((a, b) => {
         var nameA = a.firstName.toUpperCase();
         var nameB = b.firstName.toUpperCase();
         if (nameA < nameB) {
@@ -79,7 +84,7 @@ export class AddUserComponent implements OnInit {
       });
     } else {
       // sort by lastName
-      this.users_list.sort((a, b) => {
+      this.filtered_users_list.sort((a, b) => {
         var nameA = a.lastName.toUpperCase();
         var nameB = b.lastName.toUpperCase();
         if (nameA < nameB) {
@@ -143,6 +148,10 @@ export class AddUserComponent implements OnInit {
   clearFilter() {
     this.search_key = null;
     this.getUsersList();
+  }
+
+  onSearch(text) {
+    this.filtered_users_list = this.filterUserPipe.transform(this.users_list, text)
   }
 
 }

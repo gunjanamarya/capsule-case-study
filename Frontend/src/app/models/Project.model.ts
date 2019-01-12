@@ -5,4 +5,6 @@ export class Project {
     endDate: string;
     priority: number;
     userId: string;
+    tasks?: number;
+    completed?: number;
 }

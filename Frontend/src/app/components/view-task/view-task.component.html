@@ -1,15 +1,15 @@
 <div class="outer-div">
   <div class="row">
-    <div class="col-md-1">
+    <div class="col-md-1" id="sortLabel">
       <label>Project:</label>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3" id="sortLabel">
       <input type="text" [(ngModel)]="project" class="form-control" [disabled]="true">
     </div>
-    <div class="col-md-1">
+    <div class="col-md-1" id="sortLabel">
       <button type="button" class="btn btn-primary" id="search" data-toggle="modal" data-target="#ProjectModal">Search</button>
     </div>
-    <div class="col-md-1"><label>Sort Task By:</label>
+    <div class="col-md-1" id="sortLabel"><label>Sort Task By:</label>
     </div>
     <div class="col-md-6">
       <button type="button" class="btn btn-primary" id="sortBystartDate" (click)="sort('startDate')">Start Date</button>

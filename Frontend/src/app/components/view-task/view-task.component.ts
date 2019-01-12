@@ -43,7 +43,15 @@ export class ViewTaskComponent implements OnInit {
     } else if (basis == 'Priority') {
       this.tasks.sort((a, b) => +a.priority - +b.priority)
     } else if (basis == 'Completed') {
-      this.tasks = this.tasks.filter(task => task.status == 'completed')
+      this.tasks.sort(function (a, b) {
+        if (a.status < b.status) {
+          return -1;
+        }
+        if (a.status > b.status) {
+          return 1;
+        }
+        return 0;
+      })
     }
   }
 

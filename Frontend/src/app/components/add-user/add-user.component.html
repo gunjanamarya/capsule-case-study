@@ -2,38 +2,38 @@
   <form id="add-user-form" [formGroup]="addUserForm" (ngSubmit)="onSubmit()" novalidate>
 
     <div class="row">
-      <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+      <div class="col-md-2 ">
         <label>First Name:</label>
       </div>
-      <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+      <div class="col-md-6 ">
         <input type="text" class="form-control" formControlName="firstName" id="firstName">
       </div>
     </div>
 
     <div class="row">
-      <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+      <div class="col-md-2 ">
         <label>Last Name:</label>
       </div>
-      <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+      <div class="col-md-6 ">
         <input type="text" class="form-control" formControlName="lastName" id="lastName">
       </div>
     </div>
 
     <div class="row">
-      <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+      <div class="col-md-2 ">
         <label>Employee ID:</label>
       </div>
-      <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+      <div class="col-md-6 ">
         <input type="number" class="form-control" formControlName="employeeId" id="employeeId">
       </div>
     </div>
 
     <div class="row">
-      <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+      <div class="col-md-2 ">
       </div>
       <!-- <div class="col-5 col-sm-5 col-md-5 col-lg-5">
       </div> -->
-      <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+      <div class="col-md-4 ">
         <button type="submit" class="btn btn-primary" id="add" [disabled]="!addUserForm.valid" *ngIf="!editable">ADD</button>
         <button type="button" class="btn btn-primary" id="add" [disabled]="!addUserForm.valid" *ngIf="editable" (click)="onEditSave()">UPDATE</button>
         <button type="button" class="btn btn-primary" id="reset" (click)="addUserForm.reset()" *ngIf="!editable">RESET</button>
@@ -44,7 +44,7 @@
       <p style="color:red; margin-left: 1%;" *ngIf="error">{{error}}</p>
     </div>
     <div class="row">
-      <div class="col-8 col-sm-8 col-md-8 col-lg-8">
+      <div class="col-md-8 ">
         <hr style="border: solid 1px blue">
       </div>
     </div>
@@ -52,13 +52,13 @@
   </form>
 
   <div class="row">
-    <div class="col-4 col-sm-4 col-md-4 col-lg-4">
-      <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="search_key" />
+    <div class="col-md-4" id="sortLabel">
+      <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="search_key" (ngModelChange)="onSearch(search_key)" />
     </div>
-    <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+    <div class="col-md-1 " id="sortLabel">
       <label>Sort:</label>
     </div>
-    <div class="col-3 col-sm-3 col-md-3 col-lg-3">
+    <div class="col-md-3 ">
       <button type="button" class="btn btn-primary" id="sortByFirstName" (click)="sort('firstName')">First Name</button>
       <button type="button" class="btn btn-primary" id="sortByLastName" (click)="sort('lastName')">Last Name</button>
       <button type="button" class="btn btn-primary" id="sortById" (click)="sort('employeeId')">Id</button>
@@ -67,21 +67,21 @@
   </div>
 
   <div class="row">
-    <div class="col-8 col-sm-8 col-md-8 col-lg-8">
+    <div class="col-md-8 ">
       <hr class="ruler">
     </div>
   </div>
 
-  <div *ngFor="let user of users_list | filterUser : search_key">
+  <div *ngFor="let user of filtered_users_list">
     <div class="row" id="users-list">
-      <div class="col-7 col-sm-7 col-md-7 col-lg-7">
+      <div class="col-md-7 ">
         <ul class="list-group">
           <li class="list-group-item">First Name: {{user.firstName | titlecase}}</li>
           <li class="list-group-item">Last Name: {{user.lastName | titlecase}}</li>
           <li class="list-group-item">Employee id: {{user.employeeId}}</li>
         </ul>
       </div>
-      <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+      <div class="col-md-1 ">
         <button type="button" class="btn btn-secondary" id="edit-btn" (click)="onEdit(user._id)" [disabled]="editable && user._id == edit_id">Edit</button>
         <br>
         <br>
@@ -89,7 +89,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-8 col-sm-8 col-md-8 col-lg-8">
+      <div class="col-md-8 ">
         <hr class="ruler">
       </div>
     </div>

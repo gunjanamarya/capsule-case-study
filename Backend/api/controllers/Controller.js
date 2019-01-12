@@ -11,6 +11,51 @@ exports.get_projects = function (req, res) {
     });
 }
 
+exports.get_projects_with_tasks = function (req, res) {
+    var ObjectId = require('mongoose').Types.ObjectId;
+    Task.aggregate(
+        [
+            {
+                $match: {
+                    projectId: new ObjectId(req.params.id)
+                }
+            },
+            {
+                $group: {
+                    _id: "$projectId", count: { $sum: 1 }
+                }
+            }
+
+        ], function (err, tasks) {
+            if (err) res.status(500).send(err);
+            res.status(200).json(tasks);
+        }
+    )
+}
+
+exports.get_completed_tasks = function (req, res) {
+    var ObjectId = require('mongoose').Types.ObjectId;
+    Task.aggregate(
+        [
+            {
+                $match: {
+                    projectId: new ObjectId(req.params.id),
+                    status: "completed"
+                }
+            },
+            {
+                $group: {
+                    _id: "$projectId", count: { $sum: 1 }
+                }
+            }
+
+        ], function (err, tasks) {
+            if (err) res.status(500).send(err);
+            res.status(200).json(tasks);
+        }
+    )
+}
+
 exports.add_user = function (req, res) {
     var user = new User({
         firstName: req.body.firstName,
@@ -94,7 +139,13 @@ exports.delete_project = function (req, res) {
     var ObjectId = require('mongoose').Types.ObjectId;
     Project.findByIdAndDelete(new ObjectId(req.params.id), function (err, project) {
         if (err) res.status(500).send(err);
-        res.status(200).json(project);
+        Parent_Task.deleteMany({ projectId: new ObjectId(req.params.id) }, function (err, parTask) {
+            if (err) res.status(500).send(err);
+            Task.deleteMany({ projectId: new ObjectId(req.params.id) }, function (err, task) {
+                if (err) res.status(500).send(err);
+                res.status(200).json({ "": "Records deleted successfully" });
+            });
+        });
     });
 }
 
@@ -119,7 +170,7 @@ exports.add_parent_task = function (req, res) {
 
 exports.get_parents = function (req, res) {
     var ObjectId = require('mongoose').Types.ObjectId;
-    Parent_Task.find({ projectId: new ObjectId(req.params.id)},function (err, parents) {
+    Parent_Task.find({ projectId: new ObjectId(req.params.id) }, function (err, parents) {
         if (err) res.status(500).send(err);
         res.status(200).json(parents);
     });

@@ -13,8 +13,17 @@ label{
 
 button#sortBystartDate, button#sortByendDate, button#sortByPriority, button#sortByCompleted{
     margin-right: 3%;
+    margin-top: 0.9%;
 }
 
 button#delete{
-    margin-left: 1%;
+    margin-left: 0.9%;
+}
+
+button#clearFilter{
+    margin-top: 1%;
+}
+
+#sortLabel{
+    margin-top: 0.4%;
 }

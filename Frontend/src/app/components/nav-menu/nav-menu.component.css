@@ -15,12 +15,16 @@
     padding-left: 1%;
     height: 45px;
     line-height: 45px;
+    display: flex;
+    flex-wrap: nowrap;
 }
 
 a{
     text-decoration: none;
     margin-right: 1%;
     color: #c8c8c8;
+    display: flex;
+    flex-wrap: nowrap;
 }
 
 .active{

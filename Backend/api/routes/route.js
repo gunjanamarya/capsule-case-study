@@ -33,6 +33,12 @@ module.exports = function (app) {
     app.route('/search-project/:id')
         .get(services.search_project);
 
+    app.route('/get-projects-with-tasks/:id')
+        .get(services.get_projects_with_tasks);
+
+    app.route('/get-completed-tasks/:id')
+        .get(services.get_completed_tasks);
+
     app.route('/add-parent-task')
         .post(services.add_parent_task);
 

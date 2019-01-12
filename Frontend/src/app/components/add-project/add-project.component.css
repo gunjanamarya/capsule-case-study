@@ -25,7 +25,8 @@ button#sortBystartDate, button#sortByendDate, button#sortByPriority, button#sort
 
 button#edit-btn, button#delete-btn{
     float: right;
-    width: 90%;
+    width: 100%;
+    padding: 5px;
 }
 
 .ruler{

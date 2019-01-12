@@ -6,13 +6,14 @@ import { ProjectService } from '../../services/project.service';
 import { User } from '../../models/User.model';
 import { Project } from '../../models/Project.model';
 import { TitleCasePipe } from '@angular/common';
+import { FilterProjectPipe } from '../../pipes/filter-project.pipe';
 declare var $: any;
 
 @Component({
   selector: 'app-add-project',
   templateUrl: './add-project.component.html',
   styleUrls: ['./add-project.component.css'],
-  providers: [UserService, ProjectService, TitleCasePipe]
+  providers: [UserService, ProjectService, TitleCasePipe, FilterProjectPipe]
 })
 
 export class AddProjectComponent implements OnInit {
@@ -21,6 +22,7 @@ export class AddProjectComponent implements OnInit {
   today: Date;
   tomorrow: Date;
   projects: Project[];
+  filteredProjects: Project[];
   users_list: User[];
   search_text: string;
   search_user: string;
@@ -32,7 +34,8 @@ export class AddProjectComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private userService: UserService,
     private projectService: ProjectService,
-    private titleCasePipe: TitleCasePipe) { }
+    private titleCasePipe: TitleCasePipe,
+    private filterProjectPipe: FilterProjectPipe) { }
 
   ngOnInit() {
     this.setDefaultDate();
@@ -148,9 +151,28 @@ export class AddProjectComponent implements OnInit {
   listProjects() {
     this.projectService.getProjects().subscribe(data => {
       this.projects = data;
+      this.projects.forEach(project => {
+        this.projectService.getTotalTasks(project._id).subscribe(result => {
+          if (result[0]) {
+            project['tasks'] = result[0].count;
+          }
+          else {
+            project['tasks'] = 0;
+          }
+        })
+        this.projectService.getCompletedTasks(project._id).subscribe(result => {
+          if (result[0]) {
+            project['completed'] = result[0].count;
+          } else {
+            project['completed'] = 0;
+          }
+        })
+      })
+      this.filteredProjects = this.projects;
     }, error => {
       console.log(error)
     });
+
   }
 
   clearFilter() {
@@ -160,11 +182,13 @@ export class AddProjectComponent implements OnInit {
 
   sort(basis) {
     if (basis == 'startDate') {
-      this.projects.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+      this.filteredProjects.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
     } else if (basis == 'endDate') {
-      this.projects.sort((a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime())
+      this.filteredProjects.sort((a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime())
     } else if (basis == 'Priority') {
-      this.projects.sort((a, b) => +a.priority - +b.priority)
+      this.filteredProjects.sort((a, b) => +a.priority - +b.priority)
+    } else if (basis == 'Completed') {
+      this.filteredProjects.sort((a, b) => +a.completed - +b.completed)
     }
   }
 
@@ -228,6 +252,10 @@ export class AddProjectComponent implements OnInit {
     }, error => {
       console.log(error)
     });
+  }
+
+  onSearch(text) {
+    this.filteredProjects = this.filterProjectPipe.transform(this.projects, text)
   }
 
 }

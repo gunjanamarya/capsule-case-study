@@ -37,4 +37,12 @@ export class ProjectService {
   searchProject(id): Observable<Project> {
     return this._http.get<Project>(this.base_url + `search-project/${id}`);
   }
+
+  getCompletedTasks(id): any {
+    return this._http.get<any>(this.base_url + `get-completed-tasks/${id}`);
+  }
+
+  getTotalTasks(id): any {
+    return this._http.get<any>(this.base_url + `get-projects-with-tasks/${id}`);
+  }
 }
