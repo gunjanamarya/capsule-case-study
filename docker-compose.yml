@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  angular:
+    build: ./Frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - node
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
+  node:
+    build: ./Backend
+    ports:
+      - "3000:3000"
+    command: node index.js    
+    links:
+      - db
+    volumes:
+      - .:/code
+    depends_on:
+      - db

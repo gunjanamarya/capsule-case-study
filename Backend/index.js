@@ -10,7 +10,7 @@ var app = express(),
     User = require('./api/models/User'),
     Parent_Task = require('./api/models/Parent_Task')
 
-mongoose.connect('mongodb://localhost/project-manager', { useCreateIndex: true, useNewUrlParser: true });
+mongoose.connect('mongodb://db/project-manager', { useCreateIndex: true, useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Can not connect to db :('));
 db.once('open', function () {
