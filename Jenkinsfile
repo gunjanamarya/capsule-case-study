@@ -22,9 +22,9 @@ pipeline {
                 echo 'Testing Backend..'
             }
         }
-        stage('Deploy') {
+        stage('Deploy Application') {
             steps {
-                echo 'Deploying..'
+                echo 'Deploying application'
             }
         }
     }
