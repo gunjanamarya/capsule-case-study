@@ -15,8 +15,10 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "mongoose": "^5.4.0",
+    "morgan": "^1.9.1",
     "webpack": "^4.29.0",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-node-externals": "^1.7.2",
+    "winston": "^3.2.0"
   },
   "devDependencies": {
     "webpack-cli": "^3.2.1"
