@@ -24,11 +24,14 @@ pipeline {
         stage('Test Backend Application') {
             steps {
                 echo 'Testing Backend..'
+                bat 'cd Backend'
+                bat 'npm i && npm test'
             }
         }
         stage('Deploy Application') {
             steps {
                 echo 'Deploying application'
+                bat 'docker-compose up --build -d'
             }
         }
     }

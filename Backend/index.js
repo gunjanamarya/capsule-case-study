@@ -31,3 +31,5 @@ routes(app);
 app.listen(port, () => {
     logger.info('Server started on port: ' + port);
 });
+
+module.exports = app;
