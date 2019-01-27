@@ -12,6 +12,8 @@ pipeline {
         stage('Build Backend Application') {
             steps {
                 echo 'Building Backend..'
+                bat 'cd Backend'
+                bat 'npm i && npm run build'
             }
         }
         stage('Test Frontend Application') {
