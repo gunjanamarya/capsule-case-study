@@ -5,6 +5,8 @@ pipeline {
         stage('Build Frontend Application') {
             steps {
                 echo 'Building Frontend..'
+                bat 'cd Frontend'
+                bat 'npm i && ng build --prod'
             }
         }
         stage('Build Backend Application') {
