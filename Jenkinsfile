@@ -19,6 +19,7 @@ pipeline {
         stage('Test Frontend Application') {
             steps {
                 echo 'Testing Frontend..'
+                bat 'cd Frontend'
             }
         }
         stage('Test Backend Application') {
