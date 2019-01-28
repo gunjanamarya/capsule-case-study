@@ -5,15 +5,13 @@ pipeline {
         stage('Build Frontend Application') {
             steps {
                 echo 'Building Frontend..'
-                bat 'cd Frontend'
-                bat 'npm i && npm build'
+                bat 'cd Frontend && npm i && npm build'
             }
         }
         stage('Build Backend Application') {
             steps {
                 echo 'Building Backend..'
-                bat 'cd Backend'
-                bat 'npm i && npm run build'
+                bat 'cd Backend && npm i && npm run build'
             }
         }
         stage('Test Frontend Application') {
@@ -25,8 +23,7 @@ pipeline {
         stage('Test Backend Application') {
             steps {
                 echo 'Testing Backend..'
-                bat 'cd Backend'
-                bat 'npm i && npm test'
+                bat 'cd Backend && npm i && npm test'
             }
         }
         stage('Deploy Application') {
