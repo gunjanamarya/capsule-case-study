@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">76.14% </span>
+        <span class="strong">80.12% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>134/176</span>
+        <span class='fraction'>129/161</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">58% </span>
+        <span class="strong">60% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>29/50</span>
+        <span class='fraction'>24/40</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -37,14 +37,14 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>126/126</span>
+        <span class='fraction'>121/121</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -284,12 +284,7 @@
 <a name='L236'></a><a href='#L236'>236</a>
 <a name='L237'></a><a href='#L237'>237</a>
 <a name='L238'></a><a href='#L238'>238</a>
-<a name='L239'></a><a href='#L239'>239</a>
-<a name='L240'></a><a href='#L240'>240</a>
-<a name='L241'></a><a href='#L241'>241</a>
-<a name='L242'></a><a href='#L242'>242</a>
-<a name='L243'></a><a href='#L243'>243</a>
-<a name='L244'></a><a href='#L244'>244</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L239'></a><a href='#L239'>239</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -297,7 +292,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -364,7 +358,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -428,9 +421,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -542,7 +532,6 @@ var logger = require('../../winston');
 &nbsp;
 exports.get_projects = function (req, res) {
     Project.find(function (err, projects) {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (err) { <span class="cstat-no" title="statement not covered" >logger.error(err); <span class="cstat-no" title="statement not covered" ></span>res.status(500).send(err) </span>};
         res.status(200).json(projects);
     });
 }
@@ -606,7 +595,6 @@ exports.add_user = function (req, res) {
 &nbsp;
 exports.get_users = function (req, res) {
     User.find(function (err, users) {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (err) { <span class="cstat-no" title="statement not covered" >logger.error(err); <span class="cstat-no" title="statement not covered" ></span>res.status(500).send(err) </span>};
         res.status(200).json(users);
     });
 }
@@ -674,11 +662,8 @@ exports.update_project = function (req, res) {
 exports.delete_project = function (req, res) {
     var ObjectId = require('mongoose').Types.ObjectId;
     Project.findByIdAndDelete(new ObjectId(req.params.id), function (err, project) {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (err) { <span class="cstat-no" title="statement not covered" >logger.error(err); <span class="cstat-no" title="statement not covered" ></span>res.status(500).send(err) </span>};
         Parent_Task.deleteMany({ projectId: new ObjectId(req.params.id) }, function (err, parTask) {
-            <span class="missing-if-branch" title="if path not taken" >I</span>if (err) { <span class="cstat-no" title="statement not covered" >logger.error(err); <span class="cstat-no" title="statement not covered" ></span>res.status(500).send(err) </span>};
             Task.deleteMany({ projectId: new ObjectId(req.params.id) }, function (err, task) {
-                <span class="missing-if-branch" title="if path not taken" >I</span>if (err) { <span class="cstat-no" title="statement not covered" >logger.error(err); <span class="cstat-no" title="statement not covered" ></span>res.status(500).send(err) </span>};
                 res.status(200).json({ "": "Records deleted successfully" });
             });
         });
@@ -781,7 +766,7 @@ exports.update_task = function (req, res) {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jan 29 2019 16:21:13 GMT+0530 (Sri Lanka Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Feb 02 2019 18:31:59 GMT+0530 (Sri Lanka Standard Time)
 </div>
 </div>
 <script src="..\..\..\prettify.js"></script>

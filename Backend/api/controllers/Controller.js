@@ -8,7 +8,6 @@ var logger = require('../../winston');
 
 exports.get_projects = function (req, res) {
     Project.find(function (err, projects) {
-        if (err) { logger.error(err); res.status(500).send(err) };
         res.status(200).json(projects);
     });
 }
@@ -72,7 +71,6 @@ exports.add_user = function (req, res) {
 
 exports.get_users = function (req, res) {
     User.find(function (err, users) {
-        if (err) { logger.error(err); res.status(500).send(err) };
         res.status(200).json(users);
     });
 }
@@ -140,11 +138,8 @@ exports.update_project = function (req, res) {
 exports.delete_project = function (req, res) {
     var ObjectId = require('mongoose').Types.ObjectId;
     Project.findByIdAndDelete(new ObjectId(req.params.id), function (err, project) {
-        if (err) { logger.error(err); res.status(500).send(err) };
         Parent_Task.deleteMany({ projectId: new ObjectId(req.params.id) }, function (err, parTask) {
-            if (err) { logger.error(err); res.status(500).send(err) };
             Task.deleteMany({ projectId: new ObjectId(req.params.id) }, function (err, task) {
-                if (err) { logger.error(err); res.status(500).send(err) };
                 res.status(200).json({ "": "Records deleted successfully" });
             });
         });

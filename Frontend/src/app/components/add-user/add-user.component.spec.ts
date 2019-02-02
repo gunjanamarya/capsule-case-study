@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddUserComponent } from './add-user.component';
+import { FilterProjectPipe } from '../../pipes/filter-project.pipe';
+import { FilterUserPipe } from '../../pipes/filter-user.pipe';
+import { FilterParentTaskPipe } from '../../pipes/filter-parent-task.pipe';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AddUserComponent', () => {
   let component: AddUserComponent;
@@ -8,9 +12,19 @@ describe('AddUserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddUserComponent ]
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule
+      ],
+      declarations: [
+        AddUserComponent,
+        FilterProjectPipe,
+        FilterParentTaskPipe,
+        FilterUserPipe
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -20,6 +34,8 @@ describe('AddUserComponent', () => {
   });
 
   it('should create', () => {
+    fixture = TestBed.createComponent(AddUserComponent);
+    component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 });
