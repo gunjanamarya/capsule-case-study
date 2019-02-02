@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">75% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>12/16</span>
+        <span class='fraction'>16/16</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,21 +30,21 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">42.86% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>3/7</span>
+        <span class='fraction'>7/7</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">73.33% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>11/15</span>
+        <span class='fraction'>15/15</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -101,27 +101,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { Injectable } from '@angular/core';
@@ -147,20 +147,20 @@ export class UserService {
     return this._http.get&lt;User[]&gt;(this.base_url + 'get-users')
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  addUser(</span>user): Observable&lt;User&gt; {
-<span class="cstat-no" title="statement not covered" >    return this._http.post&lt;User&gt;(this.base_url + 'add-user', user, httpOptions)</span>
+  addUser(user): Observable&lt;User&gt; {
+    return this._http.post&lt;User&gt;(this.base_url + 'add-user', user, httpOptions)
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  updateUser(</span>user, id): Observable&lt;User&gt; {
-<span class="cstat-no" title="statement not covered" >    return this._http.put&lt;User&gt;(this.base_url + `update-user/${id}`, user, httpOptions)</span>
+  updateUser(user, id): Observable&lt;User&gt; {
+    return this._http.put&lt;User&gt;(this.base_url + `update-user/${id}`, user, httpOptions)
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  deleteUser(</span>id): Observable&lt;any&gt; {
-<span class="cstat-no" title="statement not covered" >    return this._http.delete&lt;any&gt;(this.base_url + `delete-user/${id}`)</span>
+  deleteUser(id): Observable&lt;any&gt; {
+    return this._http.delete&lt;any&gt;(this.base_url + `delete-user/${id}`)
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  searchUser(</span>id): Observable&lt;User&gt; {
-<span class="cstat-no" title="statement not covered" >    return this._http.get&lt;User&gt;(this.base_url + `search-user/${id}`)</span>
+  searchUser(id): Observable&lt;User&gt; {
+    return this._http.get&lt;User&gt;(this.base_url + `search-user/${id}`)
   }
 &nbsp;
 }</pre></td></tr>
@@ -169,7 +169,7 @@ export class UserService {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Feb 02 2019 19:57:42 GMT+0530 (Sri Lanka Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Feb 02 2019 22:49:02 GMT+0530 (Sri Lanka Standard Time)
 </div>
 </div>
 <script src="..\..\..\prettify.js"></script>

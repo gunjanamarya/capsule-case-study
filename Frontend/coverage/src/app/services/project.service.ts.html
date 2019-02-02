@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">70% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>14/20</span>
+        <span class='fraction'>20/20</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,21 +30,21 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">33.33% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>3/9</span>
+        <span class='fraction'>9/9</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">68.42% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>13/19</span>
+        <span class='fraction'>19/19</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -110,16 +110,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -127,19 +127,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Injectable } from '@angular/core';
@@ -162,32 +162,32 @@ export class ProjectService {
 &nbsp;
   constructor(private _http: HttpClient) { }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  addProject(</span>project): Observable&lt;Project&gt; {
-<span class="cstat-no" title="statement not covered" >    return this._http.post&lt;Project&gt;(this.base_url + 'add-project', project, httpOptions);</span>
+  addProject(project): Observable&lt;Project&gt; {
+    return this._http.post&lt;Project&gt;(this.base_url + 'add-project', project, httpOptions);
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  updateProject(</span>project, id): Observable&lt;Project&gt; {
-<span class="cstat-no" title="statement not covered" >    return this._http.put&lt;Project&gt;(this.base_url + `update-project/${id}`, project, httpOptions);</span>
+  updateProject(project, id): Observable&lt;Project&gt; {
+    return this._http.put&lt;Project&gt;(this.base_url + `update-project/${id}`, project, httpOptions);
   }
 &nbsp;
   getProjects(): Observable&lt;Project[]&gt; {
     return this._http.get&lt;Project[]&gt;(this.base_url + 'get-projects');
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  deleteProject(</span>id): Observable&lt;Project&gt; {
-<span class="cstat-no" title="statement not covered" >    return this._http.delete&lt;Project&gt;(this.base_url + `delete-project/${id}`);</span>
+  deleteProject(id): Observable&lt;Project&gt; {
+    return this._http.delete&lt;Project&gt;(this.base_url + `delete-project/${id}`);
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  searchProject(</span>id): Observable&lt;Project&gt; {
-<span class="cstat-no" title="statement not covered" >    return this._http.get&lt;Project&gt;(this.base_url + `search-project/${id}`);</span>
+  searchProject(id): Observable&lt;Project&gt; {
+    return this._http.get&lt;Project&gt;(this.base_url + `search-project/${id}`);
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  getCompletedTasks(</span>id): any {
-<span class="cstat-no" title="statement not covered" >    return this._http.get&lt;any&gt;(this.base_url + `get-completed-tasks/${id}`);</span>
+  getCompletedTasks(id): any {
+    return this._http.get&lt;any&gt;(this.base_url + `get-completed-tasks/${id}`);
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  getTotalTasks(</span>id): any {
-<span class="cstat-no" title="statement not covered" >    return this._http.get&lt;any&gt;(this.base_url + `get-projects-with-tasks/${id}`);</span>
+  getTotalTasks(id): any {
+    return this._http.get&lt;any&gt;(this.base_url + `get-projects-with-tasks/${id}`);
   }
 }
 &nbsp;</pre></td></tr>
@@ -196,7 +196,7 @@ export class ProjectService {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Feb 02 2019 19:57:42 GMT+0530 (Sri Lanka Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Feb 02 2019 22:49:02 GMT+0530 (Sri Lanka Standard Time)
 </div>
 </div>
 <script src="..\..\..\prettify.js"></script>
