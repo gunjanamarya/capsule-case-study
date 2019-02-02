@@ -5,7 +5,7 @@ import { AddTaskComponent } from './components/add-task/add-task.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { ViewTaskComponent } from './components/view-task/view-task.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'add-project', component: AddProjectComponent },
   { path: 'add-task', component: AddTaskComponent },
   { path: 'add-user', component: AddUserComponent },
