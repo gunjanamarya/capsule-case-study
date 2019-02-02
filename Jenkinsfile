@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent docker
 
     stages {
         stage('Build Frontend Application') {
@@ -17,7 +17,7 @@ pipeline {
         stage('Test Frontend Application') {
             steps {
                 echo 'Testing Frontend..'
-                bat 'cd Frontend'
+                bat 'cd Frontend && npm i && npm test'
             }
         }
         stage('Test Backend Application') {
