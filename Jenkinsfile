@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
 
     stages {
         stage('Build Frontend Application') {
@@ -27,6 +27,9 @@ pipeline {
             }
         }
         stage('Deploy Application') {
+            agent {
+                docker {}
+            }
             steps {
                 echo 'Deploying application'
                 bat 'docker-compose up --build -d'
