@@ -13,7 +13,9 @@ var app = express(),
     Parent_Task = require('./api/models/Parent_Task')
 
 app.use(morgan('combined', { stream: logger.stream }));
-mongoose.connect('mongodb://localhost:27017/project-manager', { useCreateIndex: true, useNewUrlParser: true }, function (err) {
+const env = process.env.type || 'localhost';
+const connection_uri = 'mongodb://' + env + ':27017/project-manager'
+mongoose.connect(connection_uri, { useCreateIndex: true, useNewUrlParser: true }, function (err) {
     if (err) { logger.error('Can not connect to db :(') }
 });
 const db = mongoose.connection;

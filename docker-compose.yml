@@ -13,6 +13,8 @@ services:
       - "27017:27017"
   node:
     build: ./Backend
+    environment:
+      - type=db
     ports:
       - "3000:3000"
     command: node index.js    
