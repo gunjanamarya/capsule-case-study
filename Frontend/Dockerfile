@@ -4,8 +4,8 @@ RUN mkdir /angcode
 WORKDIR /angcode
 
 COPY package.json /angcode
-COPY package-lock.json /angcode
-RUN npm ci
+# COPY package-lock.json /angcode
+RUN npm i
 
 COPY . /angcode
 RUN $(npm bin)/ng build --prod --configuration=prod
