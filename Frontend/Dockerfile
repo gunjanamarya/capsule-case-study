@@ -8,7 +8,7 @@ COPY package.json /angcode
 RUN npm i
 
 COPY . /angcode
-RUN $(npm bin)/ng build --prod --configuration=prod
+RUN $(npm bin)/ng build --prod
 
 ##STAGE 2:Run nginx to serve application ##
 FROM nginx
