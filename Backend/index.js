@@ -16,11 +16,11 @@ app.use(morgan('combined', { stream: logger.stream }));
 const env = process.env.type || 'localhost';
 const connection_uri = 'mongodb://' + env + ':27017/project-manager'
 mongoose.connect(connection_uri, { useCreateIndex: true, useNewUrlParser: true }, function (err) {
-    if (err) { logger.error('Can not connect to db :(') }
+    if (err) { logger.error('Can not connect to '+ env + ' :(') }
 });
 const db = mongoose.connection;
 db.once('open', function () {
-    logger.info('Database connected @ 27017')
+    logger.info('Database connected @ '+ env +' 27017')
 })
 
 app.use(bodyParser.urlencoded({ extended: true }));
